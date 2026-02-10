@@ -7,3 +7,4 @@ NAME = 'RendezVous'
 @RendezVousRouter.get(f"/{NAME}", response_class=JSONResponse)
 async def main():
     return {"Routeur": "RendezVousRoute"}
+

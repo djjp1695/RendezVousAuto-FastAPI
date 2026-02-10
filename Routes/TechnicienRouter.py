@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from starlette.responses import JSONResponse
 
 TechnicienRouter = APIRouter()
-NAME = 'TechnicienRouter'
+NAME = 'Technicien'
 
 @TechnicienRouter.get(f"/{NAME}", response_class=JSONResponse)
 async def main():

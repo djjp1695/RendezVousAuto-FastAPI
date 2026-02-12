@@ -1,10 +1,7 @@
-from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
+from sqlmodel import SQLModel, Field
 
-Base = declarative_base()
-
-class Technicien(Base, table=True):
-    id: Column(Integer, primary_key=True, autoincrement=True)
-    nom: Column(String)
-    prenom: Column(String)
-    actif: Column(Integer)
+class Technicien(SQLModel):
+    id: int | None = Field(default=None, primary_key=True)
+    nom: str
+    prenom: str
+    actif: int

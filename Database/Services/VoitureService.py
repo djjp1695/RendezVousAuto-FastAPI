@@ -1,7 +1,6 @@
-from sqlalchemy import select
+from sqlmodel import select
 
 from Database.Business.Voiture import Voiture
-
 
 class VoitureService:
     def __init__(self, context):

@@ -1,10 +1,24 @@
-from fastapi import APIRouter
-from starlette.responses import HTMLResponse, JSONResponse
+from http import HTTPStatus
+from fastapi import APIRouter, FastAPI, HTTPException
 
-RendezVousRouter = APIRouter()
-NAME = 'RendezVous'
+from Database.Business.RendezVous import RendezVous
 
-@RendezVousRouter.get(f"/{NAME}", response_class=JSONResponse)
-async def main():
-    return {"Routeur": "RendezVousRoute"}
+ROUTER_NAME = 'RendezVous'
+
+def create_rendezvous_router(rendezVousService) -> APIRouter:
+    router = APIRouter(prefix=f"/{ROUTER_NAME}")
+    rendezvous_service = rendezVousService;
+
+    @router.get('/', response_model=list[RendezVous],status_code=200)
+    async def index():
+        rendezVous = await rendezVousService.get_all_rendezVous();
+        if not rendezVous:
+            raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="No rendezvous found")
+        return rendezVous;
+
+
+
+    return router;
+
+
 

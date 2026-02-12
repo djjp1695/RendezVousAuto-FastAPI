@@ -1,19 +1,9 @@
-from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
+from sqlmodel import SQLModel, Field
 
-Base = declarative_base()
 
-class Voiture(Base):
+class Voiture(SQLModel, table=True):
     __tablename__ = "voiture"
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    modele = Column(String)
-    annee = Column(Integer)
-    couleur = Column(String)
-
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'modele': self.modele,
-            'annee': self.annee,
-            'couleur': self.couleur
-        }
+    id : int | None = Field(default=None, primary_key=True)
+    modele : str
+    annee : int
+    couleur : str

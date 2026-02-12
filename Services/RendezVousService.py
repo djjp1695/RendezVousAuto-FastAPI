@@ -1,6 +1,6 @@
 from sqlmodel import select
 
-from Database.Business.RendezVous import RendezVous
+from Models.RendezVous import RendezVous
 
 class RendezVousService:
     def __init__(self, context):

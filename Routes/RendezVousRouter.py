@@ -1,7 +1,7 @@
 from http import HTTPStatus
-from fastapi import APIRouter, FastAPI, HTTPException
+from fastapi import APIRouter, HTTPException
 
-from Database.Business.RendezVous import RendezVous
+from Models.RendezVous import RendezVous
 
 ROUTER_NAME = 'RendezVous'
 

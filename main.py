@@ -1,16 +1,15 @@
-from Database.Services.RendezVousService import RendezVousService
-from Database.Services.VoitureService import VoitureService
+from Services.RendezVousService import RendezVousService
+from Services.VoitureService import VoitureService
 from Routes.RendezVousRouter import create_rendezvous_router
 from Routes.VoitureRouter import create_voiture_router
 
 DB_FILENAME = './Database/db.sqlite'
 
-import uvicorn
 from fastapi import FastAPI, Request
-from starlette.responses import HTMLResponse, JSONResponse
+from starlette.responses import HTMLResponse
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
-from Database.DbContext import DbContext
+from Models.DbContext import DbContext
 from Routes.TechnicienRouter import TechnicienRouter
 
 dbContext = DbContext(DB_FILENAME)

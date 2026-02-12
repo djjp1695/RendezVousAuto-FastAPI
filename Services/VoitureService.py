@@ -1,6 +1,6 @@
 from typing import Optional, List
 
-from sqlmodel import select
+from sqlmodel import select, delete
 
 from Models.Voiture import Voiture
 
@@ -9,15 +9,15 @@ class VoitureService:
     def __init__(self, context):
         self.__context = context
 
-    async def get_all_voitures(self) -> List[Voiture]:
+    async def get_all(self) -> List[Voiture]:
         async with self.__context.get_session() as session:
             return (await session.scalars(select(Voiture))).all()
 
-    async def get_voiture_by_id(self, id: int) -> Voiture:
+    async def get_by_id(self, id: int) -> Voiture:
         async with self.__context.get_session() as session:
             return await session.get(Voiture, id)
 
-    async def get_voiture_filtres(
+    async def get_by_filtres(
             self, marque: str, annee: int, modele: str, couleur: str
     ) -> Optional[Voiture]:
         async with self.__context.get_session() as session:
@@ -30,13 +30,13 @@ class VoitureService:
             )
             return result.scalars().first()
 
-    async def add_voiture(self, voiture: Voiture) -> Voiture:
+    async def add(self, voiture: Voiture) -> Voiture:
         async with self.__context.get_session() as session:
             async with session.begin():
                 session.add(voiture)
         return voiture
 
-    async def update_voiture_status(self, id: int, actif: bool) -> Voiture:
+    async def update_status(self, id: int, actif: bool) -> Voiture:
         async with self.__context.get_session() as session:
             async with session.begin():
                 voiture = await session.get(Voiture, id)
@@ -45,7 +45,7 @@ class VoitureService:
                 voiture.actif = actif
         return voiture
 
-    async def delete_voiture_by_id(self, id: int) -> bool:
+    async def delete_by_id(self, id: int) -> bool:
         async with self.__context.get_session() as session:
             async with session.begin():
                 voiture = await session.get(Voiture, id)
@@ -53,3 +53,10 @@ class VoitureService:
                     return False
                 await session.delete(voiture)
                 return True
+
+    async def delete_all(self):
+        async with self.__context.get_session() as session:
+            async with session.begin():
+                await session.execute(delete(Voiture))
+                return True
+

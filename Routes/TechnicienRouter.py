@@ -53,11 +53,4 @@ def create_technicien_router(technicienService: TechnicienService):
         else:
             return Response(status_code=HTTPStatus.BAD_REQUEST)
 
-
-
-
-
-
-
-
     return router

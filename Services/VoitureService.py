@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import List
 
 from sqlmodel import select, delete
 
@@ -17,18 +17,15 @@ class VoitureService:
         async with self.__context.get_session() as session:
             return await session.get(Voiture, id)
 
-    async def get_by_filtres(
-            self, marque: str, annee: int, modele: str, couleur: str
-    ) -> Optional[Voiture]:
+    async def get_by_filtres(self, marque: str, annee: int, modele: str, couleur: str):
         async with self.__context.get_session() as session:
-            result = await session.execute(
+            return (await session.scalars(
                 select(Voiture)
-                .where(Voiture.marque.lower() == marque.lower())
+                .where(Voiture.marque.ilike(marque))
                 .where(Voiture.annee == annee)
-                .where(Voiture.modele.lower() == modele.lower())
-                .where(Voiture.couleur.lower() == couleur.lower())
-            )
-            return result.scalars().first()
+                .where(Voiture.modele.ilike(modele))
+                .where(Voiture.couleur.ilike(couleur))
+            )).one_or_none()
 
     async def add(self, voiture: Voiture) -> Voiture:
         async with self.__context.get_session() as session:
@@ -45,7 +42,20 @@ class VoitureService:
                 voiture.actif = actif
         return voiture
 
-    async def delete_by_id(self, id: int) -> bool:
+    async def update(self, id, voiture: Voiture) -> Voiture:
+        async with self.__context.get_session() as session:
+            async with session.begin():
+                newVoiture = await session.get(Voiture, id)
+                if newVoiture is None:
+                    return None
+                newVoiture.modele = voiture.modele
+                newVoiture.couleur = voiture.couleur
+                newVoiture.marque = voiture.marque
+                newVoiture.annee = voiture.annee
+                newVoiture.actif = voiture.actif
+        return newVoiture
+
+    async def delete_by_id(self, id: int) -> dict:
         async with self.__context.get_session() as session:
             async with session.begin():
                 voiture = await session.get(Voiture, id)
@@ -57,6 +67,5 @@ class VoitureService:
     async def delete_all(self):
         async with self.__context.get_session() as session:
             async with session.begin():
-                await session.execute(delete(Voiture))
-                return True
-
+                result = await session.execute(delete(Voiture))
+                return result.rowcount > 0

@@ -1,12 +1,13 @@
 from pydantic import BaseModel
-from sqlmodel import SQLModel, Field
+from sqlmodel import SQLModel, Field, Relationship
+
 
 class Technicien(SQLModel, table=True):
-    id: int | None = Field(default=None, primary_key=True)
+    id: int = Field(default=None, primary_key=True)
     nom: str
     prenom: str
     actif: bool
-
+    rendez_vous: list["RendezVous"] = Relationship(back_populates="technicien")
 
 class TechnicienCreate(BaseModel):
     nom: str

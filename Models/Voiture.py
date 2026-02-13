@@ -1,16 +1,16 @@
 from pydantic import BaseModel
-from sqlmodel import Field, SQLModel
+from sqlmodel import SQLModel, Field, Relationship
 
 
 class Voiture(SQLModel, table=True):
     __tablename__ = "voiture"
-    id: int | None = Field(default=None, primary_key=True)
-    marque: str = Field(nullable=False)
-    modele: str = Field(nullable=False)
-    annee: int = Field(nullable=False)
-    couleur: str = Field(nullable=False)
-    actif: bool = Field(default=True, nullable=False)
-
+    id: int = Field(default=None, primary_key=True)
+    marque: str
+    modele: str
+    annee: int
+    couleur: str
+    actif: bool = Field(default=True)
+    rendez_vous: list["RendezVous"] = Relationship(back_populates="voiture")
 
 class VoitureCreate(BaseModel):
     marque: str

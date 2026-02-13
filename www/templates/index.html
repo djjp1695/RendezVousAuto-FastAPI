@@ -1,13 +1,31 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plateforme de rendez-vous</title>
-    <!-- <link rel="stylesheet" href="styles.css">-->
+    <link rel="stylesheet" href="static/style.css">
+    <script src="static/jquery-4.0.0.min.js"></script>
+    <script src="static/app.js"></script>
 </head>
+
 <body>
-    <h1>Bienvenue</h1>
-    <script src="scripts.js"></script>
+    <nav class="navbar">
+        <ul>
+            <div id="liens">
+                <a class="pages" id="rendezVous" href="#rendezVous">Rendez-Vous</a>
+                <a class="pages" id="voitures" href="#voitures">Voitures</a></li>
+                <a class="pages" id="technicien" href="#technicien">Technicien</a>
+            </div>
+        </ul>
+    </nav>
+    <h1>Plateforme de rendez-vous automobiles</h1>
+    <h2 id="contenuPages"></h2>
+    <div id="content" class="tiles-container"">
+
+    </div>
+    </div>
 </body>
+
 </html>

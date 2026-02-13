@@ -16,8 +16,6 @@ def create_rendezvous_router(rendezVousService) -> APIRouter:
             raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="No rendezvous found")
         return rendezVous;
 
-
-
     return router;
 
 

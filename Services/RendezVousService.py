@@ -2,6 +2,7 @@ from sqlmodel import select
 
 from Models.RendezVous import RendezVous
 
+
 class RendezVousService:
     def __init__(self, context):
         self.__context = context

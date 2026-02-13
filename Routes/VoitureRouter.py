@@ -20,6 +20,7 @@ def create_voiture_router(voitureService) -> APIRouter:
                 status_code=HTTPStatus.NOT_FOUND,
                 detail="Aucune voiture présente"
             )
+        print(voitures[0].rendez_vous)
         return voitures
 
     @router.get("/recherche")

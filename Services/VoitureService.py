@@ -25,7 +25,7 @@ class VoitureService:
                 .where(Voiture.annee == annee)
                 .where(Voiture.modele.ilike(modele))
                 .where(Voiture.couleur.ilike(couleur))
-            )).one_or_none()
+            )).first()
 
     async def add(self, voiture: Voiture) -> Voiture:
         async with self.__context.get_session() as session:
@@ -67,5 +67,4 @@ class VoitureService:
     async def delete_all(self):
         async with self.__context.get_session() as session:
             async with session.begin():
-                result = await session.execute(delete(Voiture))
-                return result.rowcount > 0
+                return (await session.execute(delete(Voiture))).rowcount > 0

@@ -1,7 +1,7 @@
 from http import HTTPStatus
 
 from fastapi import APIRouter, HTTPException
-from starlette.responses import JSONResponse
+from starlette.responses import JSONResponse, Response
 
 from Models.Voiture import Voiture, VoitureCreate
 
@@ -53,7 +53,7 @@ def create_voiture_router(voitureService) -> APIRouter:
     async def delete_all():
         status = await voiture_service.delete_all()
         if status:
-            return JSONResponse(status_code=HTTPStatus.OK)
+            return Response(status_code=HTTPStatus.OK)
         else:
             return JSONResponse(status_code=HTTPStatus.BAD_REQUEST, content={"message": "Aucunes voitures présentes"})
 
@@ -61,13 +61,13 @@ def create_voiture_router(voitureService) -> APIRouter:
     async def delete_voiture(id: int):
         status = await voitureService.delete_by_id(id)
         if status:
-            return JSONResponse(status_code=HTTPStatus.OK)
+            return Response(status_code=HTTPStatus.OK)
         else:
             return JSONResponse(status_code=HTTPStatus.BAD_REQUEST, content={"message": "Voiture not present"})
 
     @router.put("/{id}")
     async def update_voiture(id: int, VoitureUpdate: VoitureCreate):
-        voiture = await (voiture_service.update(id, Voiture(**VoitureUpdate.model_dump())))
+        voiture = await voiture_service.update(id, Voiture(**VoitureUpdate.model_dump()))
         if voiture is None:
             raise HTTPException(
                 status_code=HTTPStatus.NOT_FOUND,

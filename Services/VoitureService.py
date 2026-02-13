@@ -42,18 +42,18 @@ class VoitureService:
                 voiture.actif = actif
         return voiture
 
-    async def update(self, id, voiture: Voiture) -> Voiture:
+    async def update(self, id, newVoiture: Voiture) -> Voiture:
         async with self.__context.get_session() as session:
             async with session.begin():
-                newVoiture = await session.get(Voiture, id)
-                if newVoiture is None:
+                voiture = await session.get(Voiture, id)
+                if voiture is None:
                     return None
-                newVoiture.modele = voiture.modele
-                newVoiture.couleur = voiture.couleur
-                newVoiture.marque = voiture.marque
-                newVoiture.annee = voiture.annee
-                newVoiture.actif = voiture.actif
-        return newVoiture
+                voiture.modele = newVoiture.modele
+                voiture.couleur = newVoiture.couleur
+                voiture.marque = newVoiture.marque
+                voiture.annee = newVoiture.annee
+                voiture.actif = newVoiture.actif
+        return voiture
 
     async def delete_by_id(self, id: int) -> dict:
         async with self.__context.get_session() as session:

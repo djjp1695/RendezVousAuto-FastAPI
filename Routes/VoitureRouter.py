@@ -57,7 +57,6 @@ def create_voiture_router(voitureService) -> APIRouter:
         else:
             return Response(status_code=HTTPStatus.BAD_REQUEST)
 
-
     @router.delete("/{id}", response_class=JSONResponse)
     async def delete_voiture(id: int):
         status = await voitureService.delete_by_id(id)
@@ -66,7 +65,6 @@ def create_voiture_router(voitureService) -> APIRouter:
         else:
             return Response(status_code=HTTPStatus.BAD_REQUEST)
 
-
     @router.put("/{id}", response_model=Voiture)
     async def update_status(id: int, actif: bool):
         voiture = await voiture_service.update_status(id, actif)
@@ -74,9 +72,10 @@ def create_voiture_router(voitureService) -> APIRouter:
 
     @router.post("/", response_model=Voiture)
     async def add_voiture(voitureCreate: VoitureCreate):
-        voiture = await voiture_service.add(
+        voiture = await (voiture_service.add
+            (
             Voiture(**voitureCreate.model_dump())
-        )
+        ))
         if voiture is None:
             raise HTTPException(
                 status_code=HTTPStatus.BAD_REQUEST,

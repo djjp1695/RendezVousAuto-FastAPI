@@ -23,10 +23,10 @@ class VoitureService:
         async with self.__context.get_session() as session:
             result = await session.execute(
                 select(Voiture)
-                .where(Voiture.marque == marque)
+                .where(Voiture.marque.lower() == marque.lower())
                 .where(Voiture.annee == annee)
-                .where(Voiture.modele == modele)
-                .where(Voiture.couleur == couleur)
+                .where(Voiture.modele.lower() == modele.lower())
+                .where(Voiture.couleur.lower() == couleur.lower())
             )
             return result.scalars().first()
 

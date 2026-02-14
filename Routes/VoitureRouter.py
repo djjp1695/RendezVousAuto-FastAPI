@@ -9,7 +9,7 @@ ROUTER_NAME = "Voitures"
 
 
 def create_voiture_router(voitureService) -> APIRouter:
-    router = APIRouter(prefix=f"/{ROUTER_NAME}")
+    router = APIRouter(prefix=f"/api/{ROUTER_NAME}")
     voiture_service = voitureService
 
     @router.get("/", response_model=list[Voiture])

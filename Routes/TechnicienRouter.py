@@ -10,7 +10,7 @@ NAME = 'Technicien'
 
 
 def create_technicien_router(technicienService: TechnicienService):
-    router = APIRouter(prefix=f"/{NAME}")
+    router = APIRouter(prefix=f"/api/{NAME}")
     technicienService = technicienService
 
     @router.get("/", response_model=list[Technicien])

@@ -1,7 +1,7 @@
 import VoitureService from '../Services/VoitureService.js';
 export default class VoitureManager {
-    constructor() {
-        this.voitureService = new VoitureService();
+    constructor(lienApi) {
+        this.voitureService = new VoitureService(lienApi);
     }
 
     async getAllVoitures() {

@@ -1,7 +1,12 @@
 export default class VoitureService {
+
+    constructor(lienAPI) {
+        this.lienAPI = lienAPI;
+    }
+
     async getAll() {
         try {
-            const response = await fetch('/Voitures')
+            const response = await fetch(`${this.lienAPI}/Voitures`)
             if (!response.ok)
                 console.error(response.status);
             const data = await response.json();

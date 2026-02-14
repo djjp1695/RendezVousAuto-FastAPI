@@ -7,4 +7,9 @@ export default class VoitureManager {
     async getAllVoitures() {
         return await this.voitureService.getAll();
     }
+
+    async rendreVoitureActifInactif(id, actif)
+    {
+        
+    }
 }

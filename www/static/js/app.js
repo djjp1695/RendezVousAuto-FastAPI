@@ -12,7 +12,7 @@ class App {
     }
 
     async chargerPage(hash) {
-        $('#content').empty();
+        $('#tiles-container').empty();
         switch (hash) {
             case pages.rendezVous:
                 $('#contenuPages').text("Liste des rendez-vous");
@@ -23,18 +23,26 @@ class App {
                 const voitures = await this.voitureManager.getAllVoitures();
                 if (voitures.length) {
                     voitures.forEach(element => {
-                        const $tile = $(template); // crée le tile complet
-                        $tile.find('.marque').text(`${element.marque}`);
-                        $tile.find('.modele').text(`${element.modele}`);
-                        $tile.find('.annee').text(`${element.annee}`);
-                        $tile.find('.couleur').text(`${element.couleur}`);
-                        $tile.click(() => {
-                            alert(`Vous avez cliqué sur ${element.marque} ${element.modele}`);
-                        });
-
-                        $('#content').append($tile);
+                        const template = $('#card-template-voiture').html();
+                        const $tile = $(template);
+                        // Créer le corps de la card avec les informations
+                        $tile.find('.card-title').text(element.marque);
+                        $tile.find('.card-modele').text(`Modèle: ${element.modele}`);
+                        $tile.find('.card-annee').text(`Année: ${element.annee}`);
+                        $tile.find('.card-couleur').text(`Couleur: ${element.couleur}`);
+                        $tile.find('.card-actif')
+                            .text((element.actif) ? 'Actif' : 'Inactif');
+                        $tile.find('.modifier-voiture')
+                            .attr('id', element.id);
+                        $tile.find('.actif-voiture')
+                            .text((element.actif) ? 'Rendre inactif' : "Rendre actif")
+                            .attr('id', element.id)
+                            .on('click', function () { this.voitureManager.rendreVoitureActifInactif(element.id, element.actif); });
+                        // Ajouter le tile au conteneur
+                        $('#tiles-container').append($tile);
                     });
                 }
+
                 else
                     $('#content').append(
                         $('<h3>')

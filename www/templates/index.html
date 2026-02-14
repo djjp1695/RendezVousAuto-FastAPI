@@ -5,27 +5,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plateforme de rendez-vous</title>
-    <script src="static/jquery-4.0.0.min.js"></script>
+    <script src="static/vendor/jquery-4.0.0.min.js"></script>
+    <script src="static/vendor/bootstrap.bundle.min.js"></script>
     <script type="module" src="static/js/app.js"></script>
-    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/vendor/bootstrap.min.css">
 </head>
 
 <body>
-    <nav class="navbar">
-        <ul>
-            <div id="liens">
-                <a class="pages" id="rendezVous" href="#rendezVous">Rendez-Vous</a>
-                <a class="pages" id="voitures" href="#voitures">Voitures</a></li>
-                <a class="pages" id="technicien" href="#technicien">Technicien</a>
-            </div>
-        </ul>
+    <nav class="navbar navbar-expand-lg bg-success" data-bs-theme="dark">
+        <div class="container-fluid" id="liens">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link pages" id="rendezVous" href="#rendezVous">Rendez-Vous</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link pages" id="voitures" href="#voitures">Voitures</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link pages" id="technicien" href="#technicien">Technicien</a>
+                </li>
+            </ul>
+        </div>
     </nav>
+
     <h1>Plateforme de rendez-vous automobiles</h1>
     <h2 id="contenuPages"></h2>
-    <div id="content" class="tiles-container"">
-
-    </div>
+    <div id="content" class="container">
+        <div id="tiles-container" class="row">
+        </div>
     </div>
 </body>
+
+<script id="card-template-voiture" type="text/x-template">
+      <div class="card voiture-tile" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title"></h5>
+          <p class="card-modele"></p>
+          <p class="card-annee"></p>
+          <p class="card-couleur"></p>
+          <p class="card-actif"></p>
+          <button type="button" class="modifier-voiture btn btn-primary">Modifier</button>
+          <button type="button" class="actif-voiture btn btn-danger">Mettre inactif</button>
+        </div>
+      </div>
+</script>
+
+<div class="modal-Window-voiture">
+
+</div>
 
 </html>

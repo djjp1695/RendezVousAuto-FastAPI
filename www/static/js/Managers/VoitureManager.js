@@ -1,4 +1,5 @@
-class VoitureManager {
+import VoitureService from '../Services/VoitureService.js';
+export default class VoitureManager {
     constructor() {
         this.voitureService = new VoitureService();
     }

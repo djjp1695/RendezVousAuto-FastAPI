@@ -1,28 +1,10 @@
+import VoitureManager from './Managers/VoitureManager.js';
+
 class App {
 
     constructor() {
-        this.VoitureManager = null;
-        this.pages = { rendezVous: "rendezVous", voitures: "voitures", technicien: "technicien" };
-    }
-
-    async init() {
-        const fichiers = [
-            "static/Managers/VoitureManager.js",
-            "static/Services/VoitureService.js"
-        ];
-
-        // Retourner une promesse qui attend le chargement complet
-        for (const src of fichiers) {
-            await new Promise((resolve, reject) => {
-                const script = document.createElement("script");
-                script.src = src;
-                script.onload = resolve;
-                script.onerror = () => reject(new Error(`Erreur de chargement : ${src}`));
-                document.head.appendChild(script);
-            });
-        }
-
         this.voitureManager = new VoitureManager();
+        this.pages = { rendezVous: "rendezVous", voitures: "voitures", technicien: "technicien" };
     }
 
     async chargerPage(hash) {
@@ -58,13 +40,12 @@ class App {
 
 }
 
-(async () => {
-    const app = new App();
-    await app.init();
+const app = new App();
 
+(async () => {
     // Si aucun hash, on force un hash par défaut
     if (!window.location.hash)
-        window.location.hash = '#' + pages.rendezVous;
+        window.location.hash = '#' + app.pages.rendezVous;
 
     async function updatePage() {
         const hash = window.location.hash.substring(1);

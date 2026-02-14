@@ -1,4 +1,4 @@
-class VoitureService {
+export default class VoitureService {
     async getAll() {
         try {
             const response = await fetch('/Voitures')

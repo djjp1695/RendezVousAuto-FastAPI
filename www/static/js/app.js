@@ -1,8 +1,9 @@
 import VoitureManager from './Managers/VoitureManager.js';
+import RessourcesService from './Services/RessourcesService.js';
 
 const lienAPI = '/api';
 const pages = { rendezVous: "rendezVous", voitures: "voitures", technicien: "technicien" };
-
+const lang = 'fr';
 
 
 class App {
@@ -17,6 +18,7 @@ class App {
                 $('#contenuPages').text("Liste des rendez-vous");
                 break;
             case pages.voitures:
+                console.log(window.ressourcesService.getRessource(window.lang, 'voitures'));
                 await this.voitureManager.afficherVoitures();
                 break;
             case pages.technicien:
@@ -24,11 +26,27 @@ class App {
                 break;
         }
     }
+
+    ajusterSelonLangue() {
+        $('#voitures').text(window.ressourcesService.getRessource(window.lang, 'voitures'));
+        $('#rendezVous').text(window.ressourcesService.getRessource(window.lang, 'rendez-vous'));
+
+    }
 }
 
-const app = new App();
 
 (async () => {
+    const app = new App();
+    window.lang = lang;
+    try {
+        let ressourcesService = new RessourcesService(lienAPI);
+        await ressourcesService.fetchRessources();
+        window.ressourcesService = ressourcesService;
+    }
+    catch (err) {
+        console.error(err);
+    }
+
     // Si aucun hash, on force un hash par défaut
     if (!window.location.hash)
         window.location.hash = '#' + pages.rendezVous;
@@ -38,6 +56,7 @@ const app = new App();
         $('a.pages').removeClass('active');
         $(`#${hash}`).addClass('active');
         await app.chargerPage(hash);
+        app.ajusterSelonLangue();
     }
 
     await updatePage();

@@ -4,7 +4,9 @@ from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 
 from Models.DbContext import DbContext
+from Routes.RessourcesRouter import create_ressources_router
 from Services.RendezVousService import RendezVousService
+from Services.RessourcesService import RessourceService
 from Services.TechnicienService import TechnicienService
 from Services.VoitureService import VoitureService
 
@@ -19,6 +21,8 @@ app = FastAPI()
 app.include_router(create_voiture_router(VoitureService(dbContext)))
 app.include_router(create_rendezvous_router(RendezVousService(dbContext)))
 app.include_router(create_technicien_router(TechnicienService(dbContext)))
+app.include_router(create_ressources_router(RessourceService()))
+
 
 app.mount("/static", StaticFiles(directory="www/static"), name="static")
 templates = Jinja2Templates(directory="www/templates")

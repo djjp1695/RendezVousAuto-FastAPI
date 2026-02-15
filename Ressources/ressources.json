@@ -1,0 +1,14 @@
+{
+  "en": [
+    {
+      "voitures": "Cars",
+      "rendez-vous": "appointment"
+    }
+  ],
+  "fr": [
+    {
+      "voitures": "Voitures",
+      "rendez-vous": "Rendez-vous"
+    }
+  ]
+}

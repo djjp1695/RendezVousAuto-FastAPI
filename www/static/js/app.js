@@ -2,14 +2,51 @@ import VoitureManager from './Managers/VoitureManager.js';
 
 const lienAPI = '/api';
 const pages = { rendezVous: "rendezVous", voitures: "voitures", technicien: "technicien" };
-
-
-
 class App {
 
     constructor() {
         this.voitureManager = new VoitureManager(lienAPI);
     }
+
+
+    async ouvrirModalActifInactif(element) {
+        const modalWindow = $('#modal-window-voiture');
+        modalWindow.find('.modal-body').empty();
+        modalWindow.find('.modal-title')
+            .text(`Rendre la voiture ${(element.actif) ? "inactive" : "inactive"}`);
+        ;
+        modalWindow.find('.modal-body')
+            .append(
+                $('<p>').text(`Marque : ${element.marque}`)
+            )
+            .append(
+                $('<p>').text(`Modele : ${element.modele}`)
+            )
+            .append(
+                $('<p>').text(`Année : ${element.annee}`)
+            )
+            .append(
+                $('<p>').text(`Couleur : ${element.couleur}`)
+
+            );
+        modalWindow.find('#boutonConfirmer')
+            .on('click', async () => {
+                try {
+                    const result = this.voitureManager.rendreVoitureActifInactif(element.id, element.actif);
+                    if (result) {
+                        modalWindow.modal('hide');
+                        location.reload();
+                    }
+                }
+                catch (err) {
+                    console.error(err);
+                }
+            })
+
+        modalWindow.modal('show');
+
+    }
+
 
     async chargerPage(hash) {
         $('#tiles-container').empty();
@@ -37,7 +74,7 @@ class App {
                         $tile.find('.actif-voiture')
                             .text((element.actif) ? 'Rendre inactif' : "Rendre actif")
                             .attr('id', element.id)
-                            .on('click', function () { this.voitureManager.rendreVoitureActifInactif(element.id, element.actif); });
+                            .on('click', async () => { await this.ouvrirModalActifInactif(element); });
                         // Ajouter le tile au conteneur
                         $('#tiles-container').append($tile);
                     });

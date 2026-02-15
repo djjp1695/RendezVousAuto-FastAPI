@@ -7,7 +7,6 @@ from Models.Voiture import Voiture, VoitureCreate
 
 ROUTER_NAME = "Voitures"
 
-
 def create_voiture_router(voitureService) -> APIRouter:
     router = APIRouter(prefix=f"/api/{ROUTER_NAME}")
     voiture_service = voitureService

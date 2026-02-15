@@ -1,22 +1,19 @@
 from http import HTTPStatus
 from fastapi import APIRouter, HTTPException
-
 from Models.RendezVous import RendezVous
 
 ROUTER_NAME = 'RendezVous'
+class RendezVousRouter:
 
-def create_rendezvous_router(rendezVousService) -> APIRouter:
-    router = APIRouter(prefix=f"/api/{ROUTER_NAME}")
-    rendezvous_service = rendezVousService;
+    def __init__(self, rendezVousService, apiLink):
+        self.router = APIRouter(prefix=f"{apiLink}/{ROUTER_NAME}")
+        self.__rendezVousService = rendezVousService
+        self.ajouter_routes()
 
-    @router.get('/', response_model=list[RendezVous],status_code=200)
-    async def index():
-        rendezVous = await rendezVousService.get_all_rendezVous();
-        if not rendezVous:
-            raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="No rendezvous found")
-        return rendezVous;
-
-    return router;
-
-
-
+    def ajouter_routes(self):
+        @self.router.get('/', response_model=list[RendezVous], status_code=200)
+        async def index():
+            rendezVous = await self.__rendezVousService.get_all_rendezVous();
+            if not rendezVous:
+                raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="No rendezvous found")
+            return rendezVous;

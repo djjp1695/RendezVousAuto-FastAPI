@@ -5,24 +5,25 @@ from starlette.templating import Jinja2Templates
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from Models.DbContext import DbContext
-from Routes.RessourcesRouter import create_ressources_router
+from Routes.RessourcesRouter import RessourcesRouter
 from Services.RendezVousService import RendezVousService
 from Services.RessourcesService import RessourceService
 from Services.TechnicienService import TechnicienService
 from Services.VoitureService import VoitureService
 
-from Routes.RendezVousRouter import create_rendezvous_router
-from Routes.TechnicienRouter import create_technicien_router
-from Routes.VoitureRouter import create_voiture_router
+from Routes.RendezVousRouter import RendezVousRouter
+from Routes.TechnicienRouter import TechnicienRouter
+from Routes.VoitureRouter import VoitureRouter
 
 DB_FILENAME = './Database/db.sqlite'
+API_LINK = "/api"
 
 dbContext = DbContext(DB_FILENAME)
 app = FastAPI()
-app.include_router(create_voiture_router(VoitureService(dbContext)))
-app.include_router(create_rendezvous_router(RendezVousService(dbContext)))
-app.include_router(create_technicien_router(TechnicienService(dbContext)))
-app.include_router(create_ressources_router(RessourceService()))
+app.include_router(VoitureRouter(VoitureService(dbContext), API_LINK).router)
+app.include_router(RendezVousRouter(RendezVousService(dbContext), API_LINK).router)
+app.include_router(TechnicienRouter(TechnicienService(dbContext), API_LINK).router)
+app.include_router(RessourcesRouter(RessourceService(), API_LINK).router)
 
 app.mount("/static", StaticFiles(directory="www/static"), name="static")
 templates = Jinja2Templates(directory="www/templates")
@@ -35,7 +36,7 @@ async def root(request: Request):
 
 @app.exception_handler(StarletteHTTPException)
 async def unicorn_exception_handler(request: Request, exc: StarletteHTTPException):
-    if exc.status_code == 404:  # pass to frontend
+    if exc.status_code == 404 and API_LINK not in request.url.path:  # pass to frontend
         return templates.TemplateResponse("index.html", {"request": request, "initial_status_code": 404},
                                           status_code=404)
     return JSONResponse(

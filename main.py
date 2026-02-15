@@ -38,7 +38,7 @@ async def root(request: Request):
 @app.exception_handler(StarletteHTTPException)
 async def unicorn_exception_handler(request: Request, exc: StarletteHTTPException):
     if exc.status_code == 404 and API_LINK not in request.url.path:  # pass to frontend
-        return templates.TemplateResponse("index.html", {"request": request, "initial_status_code": 404},
+        return templates.TemplateResponse(name="index.html", request=request, context= {"initial_status_code": 404},
                                           status_code=404)
     return JSONResponse(
         status_code=exc.status_code,

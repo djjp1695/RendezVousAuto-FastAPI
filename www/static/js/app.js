@@ -32,7 +32,7 @@ class App {
         modalWindow.find('#boutonConfirmer')
             .on('click', async () => {
                 try {
-                    const result = this.voitureManager.rendreVoitureActifInactif(element.id, element.actif);
+                    const result = await this.voitureManager.rendreVoitureActifInactif(element.id, element.actif);
                     if (result) {
                         modalWindow.modal('hide');
                         location.reload();
@@ -55,37 +55,7 @@ class App {
                 $('#contenuPages').text("Liste des rendez-vous");
                 break;
             case pages.voitures:
-                const template = await (await fetch('static/tile.html')).text();
-                $('#contenuPages').text("Liste des voitures");
-                const voitures = await this.voitureManager.getAllVoitures();
-                if (voitures.length) {
-                    voitures.forEach(element => {
-                        const template = $('#card-template-voiture').html();
-                        const $tile = $(template);
-                        // Créer le corps de la card avec les informations
-                        $tile.find('.card-title').text(element.marque);
-                        $tile.find('.card-modele').text(`Modèle: ${element.modele}`);
-                        $tile.find('.card-annee').text(`Année: ${element.annee}`);
-                        $tile.find('.card-couleur').text(`Couleur: ${element.couleur}`);
-                        $tile.find('.card-actif')
-                            .text((element.actif) ? 'Actif' : 'Inactif');
-                        $tile.find('.modifier-voiture')
-                            .attr('id', element.id);
-                        $tile.find('.actif-voiture')
-                            .text((element.actif) ? 'Rendre inactif' : "Rendre actif")
-                            .attr('id', element.id)
-                            .on('click', async () => { await this.ouvrirModalActifInactif(element); });
-                        // Ajouter le tile au conteneur
-                        $('#tiles-container').append($tile);
-                    });
-                }
-
-                else
-                    $('#content').append(
-                        $('<h3>')
-                            .text("Erreur de lors de la recherche des voitures")
-                            .css('color', 'red')
-                    );
+                await this.voitureManager.afficherVoitures();
                 break;
             case pages.technicien:
                 $('#contenuPages').text("Liste des techniciens");
@@ -96,7 +66,7 @@ class App {
 
 }
 
-const app = new App();
+window.app = new App();
 
 (async () => {
     // Si aucun hash, on force un hash par défaut

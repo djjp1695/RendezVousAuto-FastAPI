@@ -1,6 +1,7 @@
 import VoitureManager from './Managers/VoitureManager.js';
 import RessourcesService from './Services/RessourcesService.js';
 
+const codeErreurNotFound = 404;
 const lienAPI = '/api';
 const pages = { rendezVous: "rendezVous", voitures: "voitures", technicien: "technicien" };
 const lang = 'fr';
@@ -12,23 +13,24 @@ class App {
         this.voitureManager = new VoitureManager(lienAPI);
     }
     async chargerPage(hash) {
-        $('#tiles-container').empty();
 
-        if (window.initialStatusCode == 404) {
+
+        $('#tiles-container').empty();
+        this.activerBoutonLangue();
+        if (window.initialStatusCode == codeErreurNotFound) {
             this.afficherErreur404();
 
         }
         else {
             switch (hash) {
                 case pages.rendezVous:
-                    $('#contenuPages').text("Liste des rendez-vous");
+                    $('#contenuPages').attr('class', 'liste-rendezVous');
                     break;
                 case pages.voitures:
-                    console.log(window.ressourcesService.getRessource(window.lang, 'voitures'));
                     await this.voitureManager.afficherVoitures();
                     break;
                 case pages.technicien:
-                    $('#contenuPages').text("Liste des techniciens");
+                    $('#contenuPages').attr('class', 'liste-techniciens');
                     break;
             }
         }
@@ -37,23 +39,61 @@ class App {
     }
 
     ajusterSelonLangue() {
-        $('#titrePrincipal').text(window.ressourcesService.getRessource(window.lang, 'titrePrincipal'));
-        $('#voitures').text(window.ressourcesService.getRessource(window.lang, 'titreVoitures'));
-        $('#rendezVous').text(window.ressourcesService.getRessource(window.lang, 'titreRendezVous'));
-        $('#technicien').text(window.ressourcesService.getRessource(window.lang, 'titreTechniciens'));
-        $('.modifier-voiture').text(window.ressourcesService.getRessource(window.lang, 'boutonModifier'));
-        $('.supprimer-voiture').text(window.ressourcesService.getRessource(window.lang, 'boutonSupprimer'));
-        $('.bouton-annuler').text(window.ressourcesService.getRessource(window.lang, 'boutonAnnuler'));
-        $('.bouton-confirmer').text(window.ressourcesService.getRessource(window.lang, 'boutonConfirmer'));
-        $('.marque-voiture').text(window.ressourcesService.getRessource(window.lang, 'marqueVoiture'));
-        $('.modele-voiture').text(window.ressourcesService.getRessource(window.lang, 'modeleVoiture'));
-
-
-
-
-
+        $('#titrePrincipal').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'titrePrincipal'));
+        $('#voitures').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'titreVoitures'));
+        $('#rendezVous').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'titreRendezVous'));
+        $('#technicien').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'titreTechniciens'));
+        $('.modifier-voiture').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'boutonModifier'));
+        $('.supprimer-voiture').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'boutonSupprimer'));
+        $('.bouton-annuler').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'boutonAnnuler'));
+        $('.bouton-confirmer').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'boutonConfirmer'));
+        $('.marque-voiture').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'marqueVoiture'));
+        $('#marqueVoitureInput').attr('placeholder', window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'validationMarque'));
+        $('.modele-voiture').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'modeleVoiture'));
+        $('#modeleVoitureInput').attr('placeholder', window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'validationModele'));
+        $('.annee-voiture').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'anneeVoiture'));
+        $('#anneeVoitureInput').attr('placeholder', window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'validationAnnee'));
+        $('.couleur-voiture').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'couleurVoiture'));
+        $('#couleurVoitureInput').attr('placeholder', window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'validationCouleur'));
+        $('#labelVoitureActive').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'voitureActive'));
+        $('#modalLabelModificationVoiture').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'modificationVoiture'));
+        $('.bouton-ajout-voiture').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'ajoutVoiture'));
+        $('.liste-voitures').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'listeVoitures'));
+        $('.liste-rendezVous').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'listeRendezVous'));
+        $('.liste-techniciens').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'listeTechniciens'));
+        $('.bouton-rendre-active').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'rendreActive'));
+        $('.bouton-rendre-inactive').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'rendreInactive'));
+        $('.label-card-model').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'modeleVoiture'));
+        $('.label-card-annee').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'anneeVoiture'));
+        $('.label-card-couleur').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'couleurVoiture'));
+        $('.label-card-actif').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'actifVoiture'));
+        $('.card-actif-actif').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'voitureActive'));
+        $('.card-actif-inactif').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'voitureInactive'));
 
     }
+
+    activerBoutonLangue() {
+        let langue = sessionStorage.getItem('lang');
+        $('.btn-lang').removeClass('active');
+        switch (langue) {
+            case 'fr':
+                $('.btn-fr').addClass('active')
+
+                break;
+            case 'en':
+                $('.btn-en').addClass('active')
+                break;
+        }
+    }
+
+
+    changerLangue(langue) {
+        sessionStorage.setItem('lang', langue);
+        this.activerBoutonLangue();
+        this.ajusterSelonLangue();
+
+    }
+
 
     afficherErreur404() {
         $('#tiles-container').empty();
@@ -74,9 +114,10 @@ class App {
 
 (async () => {
     const app = new App();
-    console.log("Initial status:", window.initialStatusCode);
+    window.app = app;
+    if (!sessionStorage.getItem('lang'))
+        sessionStorage.setItem('lang', lang);
 
-    window.lang = lang;
     try {
         let ressourcesService = new RessourcesService(lienAPI);
         await ressourcesService.fetchRessources();
@@ -92,7 +133,7 @@ class App {
 
     async function updatePage() {
         let hash;
-        if (window.initialStatusCode != 404) {
+        if (window.initialStatusCode != codeErreurNotFound) {
             hash = window.location.hash.substring(1);
             $('a.pages').removeClass('active');
             $(`#${hash}`).addClass('active');

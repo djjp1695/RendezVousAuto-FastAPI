@@ -1,9 +1,39 @@
 {
   "en": [
     {
-      "titrePrincipal": "",
+      "titrePrincipal": "Car Appointment Platform",
+      "titreVoitures": "Cars",
+      "titreRendezVous": "Appointments",
+      "titreTechniciens": "Technicians",
+      "listeRendezVous": "Appointment List",
+      "listeVoitures": "Car List",
+      "listeTechniciens": "Technician List",
+      "ajoutVoiture": "Add a Car",
+      "modificationVoiture": "Edit a Car",
+      "suppresionVoiture": "Delete Car",
+      "rendreVoiture": "Activate Car",
+      "validationMarque": "Please enter the car brand",
+      "validationModele": "Please enter the car model",
+      "validationAnnee": "Please enter the car year",
+      "validationCouleur": "Please enter the car color",
+      "actifVoiture": "Active",
+      "marqueVoiture": "Brand",
+      "modeleVoiture": "Model",
+      "anneeVoiture": "Year",
+      "couleurVoiture": "Color",
+      "voitureActive": "Active",
+      "voitureInactive": "Inactive",
+      "rendreActive": "Set Active",
+      "rendreInactive": "Set Inactive",
       "voitures": "Cars",
-      "rendez-vous": "appointment"
+      "rendez-vous": "Appointments",
+      "boutonModifier": "Edit",
+      "boutonSupprimer": "Delete",
+      "boutonAnnuler": "Cancel",
+      "boutonConfirmer": "Confirm",
+      "erreurRechercheVoitures": "Error while searching for cars",
+      "erreurMiseAJourVoiture": "Failed to update car information",
+      "erreurSuppresionVoiture": "Failed to delete car"
     }
   ],
   "fr": [
@@ -18,18 +48,29 @@
       "ajoutVoiture": "Ajouter une voiture",
       "modificationVoiture": "Modification d'une voiture",
       "suppresionVoiture": "Suppression de la voiture",
+      "rendreVoiture": "Rendre la voiture",
+      "validationMarque": "Veuillez saisir la marque de la voiture",
+      "validationModele": "Veuillez saisir le modèle de la voiture",
+      "validationAnnee": "Veuillez saisir l'année de la voiture",
+      "validationCouleur": "Veuillez saisir la couleur de la voiture",
+      "actifVoiture": "Active",
       "marqueVoiture": "Marque",
       "modeleVoiture": "Modèle",
       "anneeVoiture": "Année",
       "couleurVoiture": "Couleur",
       "voitureActive": "Active",
       "voitureInactive": "Inactive",
+      "rendreActive": "Rendre active",
+      "rendreInactive": "Rendre inactive",
       "voitures": "Voitures",
       "rendez-vous": "Rendez-vous",
       "boutonModifier": "Modifier",
       "boutonSupprimer": "Supprimer",
       "boutonAnnuler": "Annuler",
-      "boutonConfirmer": "Confirmer"
+      "boutonConfirmer": "Confirmer",
+      "erreurRechercheVoitures": "Erreur de lors de la recherche des voitures",
+      "erreurMiseAJourVoiture": "Échec lors de la lecture des ressources",
+      "erreurSuppresionVoiture": "Échec lors de la lecture des ressources"
     }
   ]
 }

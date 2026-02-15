@@ -28,6 +28,10 @@
                     <a class="nav-link pages" id="technicien" href="/#technicien"></a>
                 </li>
             </ul>
+            <div class="d-flex ms-auto">
+                <button class="btn-lang btn-en btn btn-outline-light me-2" onclick="app.changerLangue('en')">EN</button>
+                <button class="btn-lang btn-fr btn btn-outline-light" onclick="app.changerLangue('fr')">FR</button>
+            </div>
         </div>
     </nav>
 
@@ -43,12 +47,28 @@
       <div class="card voiture-tile" style="width: 18rem;">
         <div class="card-body">
           <h5 class="card-title"></h5>
-          <p class="card-modele"></p>
-          <p class="card-annee"></p>
-          <p class="card-couleur"></p>
-          <p class="card-actif"></p>
+           <p>
+            <label class="label-card-model">Modele</label>            
+            :            
+            <label id="card-modele"></label>
+          </p>
+          <p>
+            <label class="label-card-annee"></label>
+            :
+            <label id="card-annee"></label>
+          </p>
+          <p>
+            <label class="label-card-couleur"></label>
+            :
+            <label id="card-couleur"></label>
+          </p>
+          <p>
+            <label class="label-card-actif"></label>
+            :
+            <label id="card-actif"></label>
+          </p>
           <button type="button" class="modifier-voiture btn btn-primary"></button>
-          <button type="button" class="actif-voiture btn btn-warning">Mettre inactif</button>
+          <button type="button" class="actif-voiture btn btn-warning"></button>
           <button type="button" class="supprimer-voiture btn btn-danger"></button>
         </div>
       </div>
@@ -75,7 +95,7 @@
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="modalLabel">Modification d'une voiture</h5>
+                <h5 class="modal-title" class="modification-voiture" id="modalLabelModificationVoiture"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -85,35 +105,31 @@
                     <!-- Marque -->
                     <div class="mb-3">
                         <label for="marqueVoiture" class="marque-voiture form-label"></label>
-                        <input type="text" class="form-control" id="marqueVoiture"
-                            placeholder="Veuillez saisir la marque de la voiture" required>
+                        <input type="text" class="form-control" id="marqueVoitureInput" required>
                     </div>
 
                     <!-- Modèle -->
                     <div class="mb-3">
                         <label for="modeleVoiture" class="modele-voiture form-label"></label>
-                        <input type="text" class="form-control" id="modeleVoiture"
-                            placeholder="Veuillez saisir le modèle de la voiture" required>
+                        <input type="text" class="form-control" id="modeleVoitureInput" required>
                     </div>
 
                     <!-- Année -->
                     <div class="mb-3">
-                        <label for="anneeVoiture" class="form-label">Année</label>
-                        <input type="number" class="form-control" id="anneeVoiture"
-                            placeholder="Veuillez saisir l'année de la voiture" required>
+                        <label for="anneeVoiture" class="annee-voiture form-label"></label>
+                        <input type="number" class="form-control" id="anneeVoitureInput" required>
                     </div>
 
                     <!-- Couleur -->
                     <div class="mb-3">
-                        <label for="couleurVoiture" class="form-label">Couleur</label>
-                        <input type="text" class="form-control" id="couleurVoiture"
-                            placeholder="Veuillez saisir la couleur de la voiture" required>
+                        <label for="couleurVoiture" class="couleur-voiture form-label"></label>
+                        <input type="text" class="form-control" id="couleurVoitureInput" required>
                     </div>
 
                     <!-- Actif Checkbox -->
                     <div class="mb-3 form-check">
                         <input type="checkbox" class="form-check-input" id="actifVoiture">
-                        <label class="form-check-label" for="actifVoiture">Actif</label>
+                        <label class="form-check-label" id="labelVoitureActive" for="actifVoiture"></label>
                     </div>
 
                     <!-- Submit Button -->

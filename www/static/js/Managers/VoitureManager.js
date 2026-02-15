@@ -17,8 +17,8 @@ export default class VoitureManager {
             const response = await this.voitureService.updateVoitureStatus(id, !actif); // Toggle the status
             return response;
         } catch (error) {
-            console.error('Error toggling car status:', error);
-            throw new Error('Failed to update car status');
+            console.error(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'erreurMiseAJourVoiture'), error);
+            throw new Error(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'erreurMiseAJourVoiture'));
         }
     }
 
@@ -28,7 +28,7 @@ export default class VoitureManager {
             return response;
         } catch (error) {
             console.error(error)
-            throw new Error("Failed to update car infos");
+            throw new Error(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'erreurMiseAJourVoiture'));
         }
     }
 
@@ -38,7 +38,7 @@ export default class VoitureManager {
             return response;
         } catch (error) {
             console.error(error)
-            throw new Error("Failed to update car infos");
+            throw new Error(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'erreurMiseAJourVoiture'));
         }
     }
 
@@ -48,7 +48,7 @@ export default class VoitureManager {
             return response;
         } catch (error) {
             console.error(error)
-            throw new Error("Failed to delete car");
+            throw new Error(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'erreurSuppresionVoiture'));
         }
     }
 
@@ -59,23 +59,26 @@ export default class VoitureManager {
         modalWindow.find('.modal-body').empty();
         if (!suppression)
             modalWindow.find('.modal-title')
-                .text(`Rendre la voiture ${(element.actif) ? "inactive" : "inactive"}`);
+                .text(`${window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'rendreVoiture')} 
+                ${(element.actif)
+                        ? `${window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'voitureInactive').toLowerCase()}`
+                        : `${window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'voitureActive').toLowerCase()}`}`);
         else
             modalWindow.find('.modal-title')
-                .text('Suppression de la voiture');
+                .text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'suppresionVoiture'));
 
         modalWindow.find('.modal-body')
             .append(
-                $('<p>').text(`Marque : ${element.marque}`)
+                $('<p>').text(`${window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'marqueVoiture')} : ${element.marque}`)
             )
             .append(
-                $('<p>').text(`Modele : ${element.modele}`)
+                $('<p>').text(`${window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'modeleVoiture')} : ${element.modele}`)
             )
             .append(
-                $('<p>').text(`Année : ${element.annee}`)
+                $('<p>').text(`${window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'anneeVoiture')} : ${element.annee}`)
             )
             .append(
-                $('<p>').text(`Couleur : ${element.couleur}`)
+                $('<p>').text(`${window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'couleurVoiture')} : ${element.couleur}`)
 
             );
         modalWindow.find('#boutonConfirmer')
@@ -109,10 +112,10 @@ export default class VoitureManager {
         const modalWindow = $('#modal-window-modification-voiture');
         if (modification) {
             modalWindow.find('#boutonConfirmer').off('click');
-            modalWindow.find('#marqueVoiture').val(element.marque);
-            modalWindow.find('#modeleVoiture').val(element.modele);
-            modalWindow.find('#anneeVoiture').val(element.annee);
-            modalWindow.find('#couleurVoiture').val(element.couleur);
+            modalWindow.find('#marqueVoitureInput').val(element.marque);
+            modalWindow.find('#modeleVoitureInput').val(element.modele);
+            modalWindow.find('#anneeVoitureInput').val(element.annee);
+            modalWindow.find('#couleurVoitureInput').val(element.couleur);
             modalWindow.find('#actifVoiture').prop('checked', element.actif);
         }
 
@@ -131,19 +134,19 @@ export default class VoitureManager {
                     if (modification) {
                         result = await this.modifierVoiture(
                             element.id,
-                            modalWindow.find('#marqueVoiture').val(),
-                            modalWindow.find('#modeleVoiture').val(),
-                            modalWindow.find('#anneeVoiture').val(),
-                            modalWindow.find('#couleurVoiture').val(),
+                            modalWindow.find('#marqueVoitureInput').val(),
+                            modalWindow.find('#modeleVoitureInput').val(),
+                            modalWindow.find('#anneeVoitureInput').val(),
+                            modalWindow.find('#couleurVoitureInput').val(),
                             modalWindow.find('#actifVoiture').prop('checked')
                         );
                     }
                     else {
                         result = await this.ajouterVoiture(
-                            modalWindow.find('#marqueVoiture').val(),
-                            modalWindow.find('#modeleVoiture').val(),
-                            modalWindow.find('#anneeVoiture').val(),
-                            modalWindow.find('#couleurVoiture').val(),
+                            modalWindow.find('#marqueVoitureInput').val(),
+                            modalWindow.find('#modeleVoitureInput').val(),
+                            modalWindow.find('#anneeVoitureInput').val(),
+                            modalWindow.find('#couleurVoitureInput').val(),
                             modalWindow.find('#actifVoiture').prop('checked')
                         );
                     }
@@ -164,10 +167,9 @@ export default class VoitureManager {
 
     async afficherVoitures() {
         $('#tiles-container').empty();
-        // Append the "Ajouter" button
         $('#tiles-container').append(
             $('<button>')
-                .text('Ajouter une voiture')
+                .attr('class', 'bouton-ajout-voiture')
                 .on('click', () => {
                     this.ouvrirModalModificationAjout(null, false);
 
@@ -175,7 +177,7 @@ export default class VoitureManager {
         );
 
 
-        $('#contenuPages').text("Liste des voitures");
+        $('#contenuPages').attr('class', 'liste-voitures');
         let voitures = await this.getAllVoitures();
         if (voitures.length) {
             voitures.forEach(element => {
@@ -183,15 +185,22 @@ export default class VoitureManager {
                 const $tile = $(template);
                 // Créer le corps de la card avec les informations
                 $tile.find('.card-title').text(element.marque);
-                $tile.find('.card-modele').text(`Modèle: ${element.modele}`);
-                $tile.find('.card-annee').text(`Année: ${element.annee}`);
-                $tile.find('.card-couleur').text(`Couleur: ${element.couleur}`);
-                $tile.find('.card-actif')
-                    .text((element.actif) ? 'Actif' : 'Inactif');
+                $tile.find('#card-modele').text(`${element.modele}`);
+                $tile.find('#card-annee').text(`${element.annee}`);
+                $tile.find('#card-couleur').text(`${element.couleur}`);
+                $tile.find('#card-actif')
+                    .addClass(
+                        (element.actif)
+                            ? 'card-actif-actif'
+                            : 'card-actif-inactif'
+                    );
                 $tile.find('.modifier-voiture')
                     .on('click', async () => { await this.ouvrirModalModificationAjout(element, true); });
                 $tile.find('.actif-voiture')
-                    .text((element.actif) ? 'Rendre inactif' : "Rendre actif")
+                    .addClass(
+                        (element.actif)
+                            ? 'bouton-rendre-inactive'
+                            : 'bouton-rendre-active')
                     .on('click', async () => { await this.ouvrirModalActifInactifSuppresion(element, false); });
                 $tile.find('.supprimer-voiture')
                     .on('click', async () => { await this.ouvrirModalActifInactifSuppresion(element, true); });
@@ -204,8 +213,11 @@ export default class VoitureManager {
         else
             $('#content').append(
                 $('<h3>')
-                    .text("Erreur de lors de la recherche des voitures")
+                    .text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'erreurRechercheVoitures'))
                     .css('color', 'red')
             );
+        window.app.ajusterSelonLangue();
+
     }
+
 }

@@ -45,7 +45,8 @@
           <p class="card-couleur"></p>
           <p class="card-actif"></p>
           <button type="button" class="modifier-voiture btn btn-primary">Modifier</button>
-          <button type="button" class="actif-voiture btn btn-danger">Mettre inactif</button>
+          <button type="button" class="actif-voiture btn btn-warning">Mettre inactif</button>
+          <button type="button" class="supprimer-voiture btn btn-danger">Supprimer</button>
         </div>
       </div>
 </script>
@@ -62,6 +63,65 @@
                 <button id="boutonConfirmer" type="button" class="btn btn-primary">Confirmer</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
             </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal-window-modification-voiture" class="modal fade" tabindex="-1" aria-labelledby="modalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Modification d'une voiture</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Form Inside Modal -->
+            <form id="updateVoitureForm">
+                <div class="modal-body">
+                    <!-- Marque -->
+                    <div class="mb-3">
+                        <label for="marqueVoiture" class="form-label">Marque</label>
+                        <input type="text" class="form-control" id="marqueVoiture"
+                            placeholder="Veuillez saisir la marque de la voiture" required>
+                    </div>
+
+                    <!-- Modèle -->
+                    <div class="mb-3">
+                        <label for="modeleVoiture" class="form-label">Modèle</label>
+                        <input type="text" class="form-control" id="modeleVoiture"
+                            placeholder="Veuillez saisir le modèle de la voiture" required>
+                    </div>
+
+                    <!-- Année -->
+                    <div class="mb-3">
+                        <label for="anneeVoiture" class="form-label">Année</label>
+                        <input type="number" class="form-control" id="anneeVoiture"
+                            placeholder="Veuillez saisir l'année de la voiture" required>
+                    </div>
+
+                    <!-- Couleur -->
+                    <div class="mb-3">
+                        <label for="couleurVoiture" class="form-label">Couleur</label>
+                        <input type="text" class="form-control" id="couleurVoiture"
+                            placeholder="Veuillez saisir la couleur de la voiture" required>
+                    </div>
+
+                    <!-- Actif Checkbox -->
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="actifVoiture">
+                        <label class="form-check-label" for="actifVoiture">Actif</label>
+                    </div>
+
+                    <!-- Submit Button -->
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="submit" id="boutonConfirmer" class="btn btn-primary">Confirmer</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

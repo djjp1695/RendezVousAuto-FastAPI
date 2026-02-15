@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plateforme de rendez-vous</title>
     <script>
-        window.initialStatusCode = {{ initial_status_code | default(200) }};
+        window.initialStatusCode = {{ initial_status_code | default (200) }};
     </script>
     <script src="static/vendor/jquery-4.0.0.min.js"></script>
     <script src="static/vendor/bootstrap.bundle.min.js"></script>
@@ -19,19 +19,19 @@
         <div class="container-fluid" id="liens">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link pages" id="rendezVous" href="/#rendezVous">Rendez-Vous</a>
+                    <a class="nav-link pages" id="rendezVous" href="/#rendezVous"></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link pages" id="voitures" href="/#voitures">Voitures</a>
+                    <a class="nav-link pages" id="voitures" href="/#voitures"></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link pages" id="technicien" href="/#technicien">Technicien</a>
+                    <a class="nav-link pages" id="technicien" href="/#technicien"></a>
                 </li>
             </ul>
         </div>
     </nav>
 
-    <h1>Plateforme de rendez-vous automobiles</h1>
+    <h1 id="titrePrincipal"></h1>
     <h2 id="contenuPages"></h2>
     <div id="content" class="container">
         <div id="tiles-container" class="row">
@@ -47,9 +47,9 @@
           <p class="card-annee"></p>
           <p class="card-couleur"></p>
           <p class="card-actif"></p>
-          <button type="button" class="modifier-voiture btn btn-primary">Modifier</button>
+          <button type="button" class="modifier-voiture btn btn-primary"></button>
           <button type="button" class="actif-voiture btn btn-warning">Mettre inactif</button>
-          <button type="button" class="supprimer-voiture btn btn-danger">Supprimer</button>
+          <button type="button" class="supprimer-voiture btn btn-danger"></button>
         </div>
       </div>
 </script>
@@ -58,13 +58,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
+                <h5 class="modal-title"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body"></div>
             <div class="modal-footer">
-                <button id="boutonConfirmer" type="button" class="btn btn-primary">Confirmer</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button id="boutonConfirmer" type="button" class="bouton-confirmer btn btn-primary"></button>
+                <button type="button" class="bouton-annuler btn btn-secondary" data-bs-dismiss="modal"></button>
             </div>
         </div>
     </div>
@@ -84,14 +84,14 @@
                 <div class="modal-body">
                     <!-- Marque -->
                     <div class="mb-3">
-                        <label for="marqueVoiture" class="form-label">Marque</label>
+                        <label for="marqueVoiture" class="marque-voiture form-label"></label>
                         <input type="text" class="form-control" id="marqueVoiture"
                             placeholder="Veuillez saisir la marque de la voiture" required>
                     </div>
 
                     <!-- Modèle -->
                     <div class="mb-3">
-                        <label for="modeleVoiture" class="form-label">Modèle</label>
+                        <label for="modeleVoiture" class="modele-voiture form-label"></label>
                         <input type="text" class="form-control" id="modeleVoiture"
                             placeholder="Veuillez saisir le modèle de la voiture" required>
                     </div>
@@ -121,8 +121,8 @@
 
                 <!-- Modal Footer -->
                 <div class="modal-footer">
-                    <button type="submit" id="boutonConfirmer" class="btn btn-primary">Confirmer</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" id="boutonConfirmer" class="bouton-confirmer btn btn-primary"></button>
+                    <button type="button" class="bouton-annuler btn btn-secondary" data-bs-dismiss="modal"></button>
                 </div>
             </form>
         </div>

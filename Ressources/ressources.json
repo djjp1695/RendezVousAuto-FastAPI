@@ -1,14 +1,35 @@
 {
   "en": [
     {
+      "titrePrincipal": "",
       "voitures": "Cars",
       "rendez-vous": "appointment"
     }
   ],
   "fr": [
     {
+      "titrePrincipal": "Plateforme de rendez-vous automobiles",
+      "titreVoitures": "Voitures",
+      "titreRendezVous": "Rendez-vous",
+      "titreTechniciens": "Techniciens",
+      "listeRendezVous": "Liste des rendez-vous",
+      "listeVoitures": "Liste des voitures",
+      "listeTechniciens": "Liste des techniciens",
+      "ajoutVoiture": "Ajouter une voiture",
+      "modificationVoiture": "Modification d'une voiture",
+      "suppresionVoiture": "Suppression de la voiture",
+      "marqueVoiture": "Marque",
+      "modeleVoiture": "Modèle",
+      "anneeVoiture": "Année",
+      "couleurVoiture": "Couleur",
+      "voitureActive": "Active",
+      "voitureInactive": "Inactive",
       "voitures": "Voitures",
-      "rendez-vous": "Rendez-vous"
+      "rendez-vous": "Rendez-vous",
+      "boutonModifier": "Modifier",
+      "boutonSupprimer": "Supprimer",
+      "boutonAnnuler": "Annuler",
+      "boutonConfirmer": "Confirmer"
     }
   ]
 }

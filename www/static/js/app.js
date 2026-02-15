@@ -37,8 +37,21 @@ class App {
     }
 
     ajusterSelonLangue() {
-        $('#voitures').text(window.ressourcesService.getRessource(window.lang, 'voitures'));
-        $('#rendezVous').text(window.ressourcesService.getRessource(window.lang, 'rendez-vous'));
+        $('#titrePrincipal').text(window.ressourcesService.getRessource(window.lang, 'titrePrincipal'));
+        $('#voitures').text(window.ressourcesService.getRessource(window.lang, 'titreVoitures'));
+        $('#rendezVous').text(window.ressourcesService.getRessource(window.lang, 'titreRendezVous'));
+        $('#technicien').text(window.ressourcesService.getRessource(window.lang, 'titreTechniciens'));
+        $('.modifier-voiture').text(window.ressourcesService.getRessource(window.lang, 'boutonModifier'));
+        $('.supprimer-voiture').text(window.ressourcesService.getRessource(window.lang, 'boutonSupprimer'));
+        $('.bouton-annuler').text(window.ressourcesService.getRessource(window.lang, 'boutonAnnuler'));
+        $('.bouton-confirmer').text(window.ressourcesService.getRessource(window.lang, 'boutonConfirmer'));
+        $('.marque-voiture').text(window.ressourcesService.getRessource(window.lang, 'marqueVoiture'));
+        $('.modele-voiture').text(window.ressourcesService.getRessource(window.lang, 'modeleVoiture'));
+
+
+
+
+
 
     }
 

@@ -16,6 +16,7 @@ from Routes.TechnicienRouter import TechnicienRouter
 from Routes.VoitureRouter import VoitureRouter
 
 DB_FILENAME = './Database/db.sqlite'
+RESSOURCE_FILENAME = 'Ressources/ressources.json'
 API_LINK = "/api"
 
 dbContext = DbContext(DB_FILENAME)
@@ -23,7 +24,7 @@ app = FastAPI()
 app.include_router(VoitureRouter(VoitureService(dbContext), API_LINK).router)
 app.include_router(RendezVousRouter(RendezVousService(dbContext), API_LINK).router)
 app.include_router(TechnicienRouter(TechnicienService(dbContext), API_LINK).router)
-app.include_router(RessourcesRouter(RessourceService(), API_LINK).router)
+app.include_router(RessourcesRouter(RessourceService(RESSOURCE_FILENAME), API_LINK).router)
 
 app.mount("/static", StaticFiles(directory="www/static"), name="static")
 templates = Jinja2Templates(directory="www/templates")

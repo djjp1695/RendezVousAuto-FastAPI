@@ -33,7 +33,9 @@
       "boutonConfirmer": "Confirm",
       "erreurRechercheVoitures": "Error while searching for cars",
       "erreurMiseAJourVoiture": "Failed to update car information",
-      "erreurSuppresionVoiture": "Failed to delete car"
+      "erreurSuppresionVoiture": "Failed to delete car",
+      "retourAccueil": "Back to home",
+      "pageNonTrouvée": "Page not found."
     }
   ],
   "fr": [
@@ -70,7 +72,9 @@
       "boutonConfirmer": "Confirmer",
       "erreurRechercheVoitures": "Erreur de lors de la recherche des voitures",
       "erreurMiseAJourVoiture": "Échec lors de la lecture des ressources",
-      "erreurSuppresionVoiture": "Échec lors de la lecture des ressources"
+      "erreurSuppresionVoiture": "Échec lors de la lecture des ressources",
+      "retourAccueil": "Retour à l'accueil",
+      "pageNonTrouvée": "Page non trouvée."
     }
   ],
   "es": [
@@ -107,7 +111,9 @@
       "boutonConfirmer": "Confirmar",
       "erreurRechercheVoitures": "Error al buscar autos",
       "erreurMiseAJourVoiture": "Error al actualizar la información del auto",
-      "erreurSuppresionVoiture": "Error al eliminar el auto"
+      "erreurSuppresionVoiture": "Error al eliminar el auto",
+      "retourAccueil": "Volver a inicio",
+      "pageNonTrouvée": "Página no encontrada."
     }
   ]
 }

@@ -5,6 +5,7 @@ const codeErreurNotFound = 404;
 const lienAPI = '/api';
 const pages = { rendezVous: "rendezVous", voitures: "voitures", technicien: "technicien" };
 const lang_defaut = 'fr';
+const pagePrincipale = pages.voitures;
 
 
 class App {
@@ -69,6 +70,15 @@ class App {
         $('.label-card-actif').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'actifVoiture'));
         $('.card-actif-actif').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'voitureActive'));
         $('.card-actif-inactif').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'voitureInactive'));
+        $('.retour-accueil').text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'pageNonTrouvée')).append
+            (
+                $('<p>')
+                    .append(
+                        $('<a>')
+                            .attr('href', `/#${pagePrincipale}`)
+                            .text(window.ressourcesService.getRessource(sessionStorage.getItem('lang'), 'retourAccueil'))
+                    )
+            );
 
     }
 
@@ -99,17 +109,7 @@ class App {
 
     afficherErreur404() {
         $('#tiles-container').empty();
-        $('#contenuPages').text("Page non trouvée.");
-        $('#contenuPages').append(
-            $('<p>')
-                .append(
-                    $('<a>')
-                        .attr('href', '/#rendezVous')
-                        .text("Retour à l'accueil")
-                )
-        );
-
-
+        $('#contenuPages').attr('class', 'retour-accueil');
     }
 }
 
@@ -131,7 +131,7 @@ class App {
 
     // Si aucun hash, on force un hash par défaut
     if (!window.location.hash && window.initialStatusCode != 404)
-        window.location.hash = '#' + pages.rendezVous;
+        window.location.hash = `#${pagePrincipale}`;
 
     async function updatePage() {
         let hash;

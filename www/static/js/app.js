@@ -4,7 +4,7 @@ import RessourcesService from './Services/RessourcesService.js';
 const codeErreurNotFound = 404;
 const lienAPI = '/api';
 const pages = { rendezVous: "rendezVous", voitures: "voitures", technicien: "technicien" };
-const lang = 'fr';
+const lang_defaut = 'fr';
 
 
 class App {
@@ -78,11 +78,13 @@ class App {
         switch (langue) {
             case 'fr':
                 $('.btn-fr').addClass('active')
-
                 break;
             case 'en':
                 $('.btn-en').addClass('active')
                 break;
+            case 'es':
+                $('.btn-es').addClass('active')
+
         }
     }
 
@@ -116,7 +118,7 @@ class App {
     const app = new App();
     window.app = app;
     if (!sessionStorage.getItem('lang'))
-        sessionStorage.setItem('lang', lang);
+        sessionStorage.setItem('lang', lang_defaut);
 
     try {
         let ressourcesService = new RessourcesService(lienAPI);

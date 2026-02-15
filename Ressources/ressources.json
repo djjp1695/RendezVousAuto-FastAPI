@@ -72,5 +72,42 @@
       "erreurMiseAJourVoiture": "Échec lors de la lecture des ressources",
       "erreurSuppresionVoiture": "Échec lors de la lecture des ressources"
     }
+  ],
+  "es": [
+    {
+      "titrePrincipal": "Plataforma de Citas de Autos",
+      "titreVoitures": "Autos",
+      "titreRendezVous": "Citas",
+      "titreTechniciens": "Técnicos",
+      "listeRendezVous": "Lista de Citas",
+      "listeVoitures": "Lista de Autos",
+      "listeTechniciens": "Lista de Técnicos",
+      "ajoutVoiture": "Agregar un Auto",
+      "modificationVoiture": "Editar un Auto",
+      "suppresionVoiture": "Eliminar Auto",
+      "rendreVoiture": "Activar Auto",
+      "validationMarque": "Por favor ingrese la marca del auto",
+      "validationModele": "Por favor ingrese el modelo del auto",
+      "validationAnnee": "Por favor ingrese el año del auto",
+      "validationCouleur": "Por favor ingrese el color del auto",
+      "actifVoiture": "Activo",
+      "marqueVoiture": "Marca",
+      "modeleVoiture": "Modelo",
+      "anneeVoiture": "Año",
+      "couleurVoiture": "Color",
+      "voitureActive": "Activo",
+      "voitureInactive": "Inactivo",
+      "rendreActive": "Activar",
+      "rendreInactive": "Desactivar",
+      "voitures": "Autos",
+      "rendez-vous": "Citas",
+      "boutonModifier": "Editar",
+      "boutonSupprimer": "Eliminar",
+      "boutonAnnuler": "Cancelar",
+      "boutonConfirmer": "Confirmar",
+      "erreurRechercheVoitures": "Error al buscar autos",
+      "erreurMiseAJourVoiture": "Error al actualizar la información del auto",
+      "erreurSuppresionVoiture": "Error al eliminar el auto"
+    }
   ]
 }

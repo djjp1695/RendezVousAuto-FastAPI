@@ -13,18 +13,27 @@ class App {
     }
     async chargerPage(hash) {
         $('#tiles-container').empty();
-        switch (hash) {
-            case pages.rendezVous:
-                $('#contenuPages').text("Liste des rendez-vous");
-                break;
-            case pages.voitures:
-                console.log(window.ressourcesService.getRessource(window.lang, 'voitures'));
-                await this.voitureManager.afficherVoitures();
-                break;
-            case pages.technicien:
-                $('#contenuPages').text("Liste des techniciens");
-                break;
+
+        if (window.initialStatusCode == 404) {
+            this.afficherErreur404();
+
         }
+        else {
+            switch (hash) {
+                case pages.rendezVous:
+                    $('#contenuPages').text("Liste des rendez-vous");
+                    break;
+                case pages.voitures:
+                    console.log(window.ressourcesService.getRessource(window.lang, 'voitures'));
+                    await this.voitureManager.afficherVoitures();
+                    break;
+                case pages.technicien:
+                    $('#contenuPages').text("Liste des techniciens");
+                    break;
+            }
+        }
+
+        this.ajusterSelonLangue();
     }
 
     ajusterSelonLangue() {
@@ -32,11 +41,28 @@ class App {
         $('#rendezVous').text(window.ressourcesService.getRessource(window.lang, 'rendez-vous'));
 
     }
+
+    afficherErreur404() {
+        $('#tiles-container').empty();
+        $('#contenuPages').text("Page non trouvée.");
+        $('#contenuPages').append(
+            $('<p>')
+                .append(
+                    $('<a>')
+                        .attr('href', '/#rendezVous')
+                        .text("Retour à l'accueil")
+                )
+        );
+
+
+    }
 }
 
 
 (async () => {
     const app = new App();
+    console.log("Initial status:", window.initialStatusCode);
+
     window.lang = lang;
     try {
         let ressourcesService = new RessourcesService(lienAPI);
@@ -48,15 +74,17 @@ class App {
     }
 
     // Si aucun hash, on force un hash par défaut
-    if (!window.location.hash)
+    if (!window.location.hash && window.initialStatusCode != 404)
         window.location.hash = '#' + pages.rendezVous;
 
     async function updatePage() {
-        const hash = window.location.hash.substring(1);
-        $('a.pages').removeClass('active');
-        $(`#${hash}`).addClass('active');
+        let hash;
+        if (window.initialStatusCode != 404) {
+            hash = window.location.hash.substring(1);
+            $('a.pages').removeClass('active');
+            $(`#${hash}`).addClass('active');
+        }
         await app.chargerPage(hash);
-        app.ajusterSelonLangue();
     }
 
     await updatePage();

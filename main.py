@@ -1,7 +1,8 @@
 from fastapi import FastAPI, Request
-from starlette.responses import HTMLResponse
+from starlette.responses import HTMLResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from Models.DbContext import DbContext
 from Routes.RessourcesRouter import create_ressources_router
@@ -23,7 +24,6 @@ app.include_router(create_rendezvous_router(RendezVousService(dbContext)))
 app.include_router(create_technicien_router(TechnicienService(dbContext)))
 app.include_router(create_ressources_router(RessourceService()))
 
-
 app.mount("/static", StaticFiles(directory="www/static"), name="static")
 templates = Jinja2Templates(directory="www/templates")
 
@@ -31,3 +31,14 @@ templates = Jinja2Templates(directory="www/templates")
 @app.get("/", response_class=HTMLResponse)
 async def root(request: Request):
     return templates.TemplateResponse(request=request, name="index.html")
+
+
+@app.exception_handler(StarletteHTTPException)
+async def unicorn_exception_handler(request: Request, exc: StarletteHTTPException):
+    if exc.status_code == 404:  # pass to frontend
+        return templates.TemplateResponse("index.html", {"request": request, "initial_status_code": 404},
+                                          status_code=404)
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"detail": exc.detail},
+    )

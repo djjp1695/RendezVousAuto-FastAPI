@@ -9,6 +9,14 @@ class Technicien(SQLModel, table=True):
     actif: bool
     rendez_vous: list["RendezVous"] = Relationship(back_populates="technicien")
 
+
+class TechnicienOut(BaseModel):
+    id: int
+    nom: str
+    prenom: str
+    actif: bool
+
+
 class TechnicienCreate(BaseModel):
     nom: str
     prenom: str

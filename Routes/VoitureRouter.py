@@ -3,7 +3,7 @@ from http import HTTPStatus
 from fastapi import APIRouter, HTTPException
 from starlette.responses import JSONResponse, Response
 
-from Models.Voiture import Voiture, VoitureCreate
+from Models.Voiture import Voiture, VoitureCreate, VoitureOut
 from Services.VoitureService import VoitureService
 
 ROUTER_NAME = "Voitures"
@@ -16,7 +16,7 @@ class VoitureRouter():
         self.ajouter_routes();
 
     def ajouter_routes(self):
-        @self.router.get("/", response_model=list[Voiture])
+        @self.router.get("/", response_model=list[VoitureOut])
         async def voitures():
             voitures = await self.__voiture_service.get_all()
             if not voitures:

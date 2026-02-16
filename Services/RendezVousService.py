@@ -1,3 +1,4 @@
+from sqlalchemy.orm import selectinload
 from sqlmodel import select
 
 from Models.RendezVous import RendezVous
@@ -9,7 +10,11 @@ class RendezVousService:
 
     async def get_all_rendezVous(self):
         async with self.__context.get_session() as session:
-            return (await session.execute(select(RendezVous))).scalars().all()
+            return (
+                await session.execute(select(RendezVous)
+                .options(
+                    selectinload(RendezVous.technicien)
+                ))).scalars().all()
 
     async def get_rendezVous_by_id(self, id):
         async with self.__context.get_session() as session:

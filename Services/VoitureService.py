@@ -3,6 +3,7 @@ from typing import List
 from sqlalchemy.orm import selectinload
 from sqlmodel import select, delete
 
+from Models.RendezVous import RendezVous
 from Models.Voiture import Voiture
 
 
@@ -12,7 +13,14 @@ class VoitureService:
 
     async def get_all(self) -> List[Voiture]:
         async with self.__context.get_session() as session:
-            return (await session.scalars(select(Voiture).options(selectinload(Voiture.rendez_vous)))).all()
+            return (await session.scalars(
+                select(Voiture)
+                .options(
+                    selectinload(Voiture.rendez_vous)
+                    .selectinload(RendezVous.technicien)
+                )
+            )
+                    ).all()
 
     async def get_by_id(self, id: int) -> Voiture:
         async with self.__context.get_session() as session:

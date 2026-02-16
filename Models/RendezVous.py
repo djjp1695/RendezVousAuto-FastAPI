@@ -1,6 +1,10 @@
 from datetime import datetime
 
+from pydantic import BaseModel
 from sqlmodel import SQLModel, Field, Relationship
+
+from Models.Technicien import TechnicienOut
+from Models.Voiture import VoitureOut
 
 
 class RendezVous(SQLModel, table=True):
@@ -10,4 +14,11 @@ class RendezVous(SQLModel, table=True):
     technicien: "Technicien" = Relationship(back_populates="rendez_vous")
     voiture_id: int = Field(foreign_key="voiture.id")
     voiture: "Voiture" = Relationship(back_populates="rendez_vous")
+    date_heure: datetime
+
+
+class RendezVousOut(BaseModel):
+    id: int
+    technicien: TechnicienOut
+    voiture: VoitureOut
     date_heure: datetime

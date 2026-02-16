@@ -1,8 +1,10 @@
 from http import HTTPStatus
 from fastapi import APIRouter, HTTPException
-from Models.RendezVous import RendezVous
+from Models.RendezVous import RendezVousOut
 
 ROUTER_NAME = 'RendezVous'
+
+
 class RendezVousRouter:
 
     def __init__(self, rendezVousService, apiLink):
@@ -11,7 +13,7 @@ class RendezVousRouter:
         self.ajouter_routes()
 
     def ajouter_routes(self):
-        @self.router.get('/', response_model=list[RendezVous], status_code=200)
+        @self.router.get('/', response_model=list[RendezVousOut], status_code=200)
         async def index():
             rendezVous = await self.__rendezVousService.get_all_rendezVous();
             if not rendezVous:
